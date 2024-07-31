@@ -1,10 +1,12 @@
 package com.amadejsky.web_services;
 
+import com.amadejsky.web_services.enterprise.web.MyWebController;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 
 @SpringBootApplication
+//@ComponentScan("com.amadejsky.web_services");
 public class WebServicesApplication {
 
 	public static void main(String[] args) {
@@ -18,6 +20,8 @@ public class WebServicesApplication {
 //		GameRunner runner1 = new GameRunner(gameM);
 		GameRunner runner = context.getBean(GameRunner.class);
 		runner.run();
+		MyWebController controller = context.getBean(MyWebController.class);
+		System.out.println(controller.returnValueFromBusinessService());
 //		GameRunner runner2 = new GameRunner(gameSP);
 //		runner2.run();
 //
