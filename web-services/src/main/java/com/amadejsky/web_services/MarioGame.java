@@ -2,7 +2,7 @@ package com.amadejsky.web_services;
 
 import org.springframework.stereotype.Component;
 
-//@Component
+@Component
 public class MarioGame implements GamingConsole{
 
     public void up(){

@@ -8,8 +8,21 @@ import java.util.List;
 
 @Component
 public class BusinessService{
-    @Autowired
+
     private DataService dataService;
+    @Autowired
+    public BusinessService(DataService dataService) {
+        super();
+        System.out.println("Constructor injection of DS in BS");
+        this.dataService = dataService;
+    }
+
+//    @Autowired
+//    public void setDataService(DataService dataService) {
+//        System.out.println("BS Setter injection of DS");
+//        this.dataService = dataService;
+//    }
+
     public long calculate(){
         List<Integer> data = dataService.getData();
         return data.stream().reduce(Integer::sum).get();

@@ -6,9 +6,13 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class MyWebController {
-    @Autowired
+
     private BusinessService businessService;
 
+    @Autowired
+    public MyWebController(BusinessService businessService) {
+        this.businessService = businessService;
+    }
     public long returnValueFromBusinessService() {
         System.out.println("--Business system response from Server--");
         System.out.println("----------------------------------------");
