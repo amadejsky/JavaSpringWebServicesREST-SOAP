@@ -5,19 +5,16 @@
            xmlns:tns="http://in28minutes.com/courses"
            elementFormDefault="qualified">
 
+    <!-- GetCourseDetailsRequest element -->
     <xs:element name="GetCourseDetailsRequest">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="CourseDetails">
-                    <xs:complexType>
-                        <xs:sequence>
-                            <xs:element name="id" type="xs:integer"/>
-                        </xs:sequence>
-                    </xs:complexType>
-                </xs:element>
+                <xs:element name="id" type="xs:integer"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
+
+    <!-- GetCourseDetailsResponse element -->
     <xs:element name="GetCourseDetailsResponse">
         <xs:complexType>
             <xs:sequence>
@@ -33,27 +30,31 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
+
+    <!-- GetAllCourseDetailsRequest element -->
+    <xs:element name="GetAllCourseDetailsRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="request" type="xs:string" minOccurs="0"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- GetAllCourseDetailsResponse element -->
+    <xs:element name="GetAllCourseDetailsResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="CourseDetails" maxOccurs="unbounded">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="id" type="xs:integer"/>
+                            <xs:element name="name" type="xs:string" minOccurs="0"/>
+                            <xs:element name="description" type="xs:string" minOccurs="0"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
 </xs:schema>
-
-
-
-
-
-        <!--<?xml version="1.0" encoding="UTF-8"?>-->
-<!--<schema xlmns="http://www.w3.org/2001/XMLSchema"-->
-<!--targetNamespace="http://in28minutes.com/courses"-->
-<!--xmlns:tns="http://in28minutes.com/courses" elementFormDefault="qualified">-->
-<!--    <element name="GetCourseDetailsRequest">-->
-<!--        <complexType>-->
-<!--            <sequence>-->
-<!--                <element name="id" type="integer"></element>-->
-<!--            </sequence>-->
-<!--        </complexType>-->
-<!--    </element>-->
-<!--</schema>-->
-
-
-<!--<GetCourseDetailsRequest xmlns="http://in28minutes.com/courses">-->
-<!--<CourseDetails>-->
-<!--    <id>123</id>-->
-<!--</CourseDetails>-->

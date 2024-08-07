@@ -30,14 +30,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link GetCourseDetailsRequest }
-     * 
-     */
-    public GetCourseDetailsRequest createGetCourseDetailsRequest() {
-        return new GetCourseDetailsRequest();
-    }
-
-    /**
      * Create an instance of {@link GetCourseDetailsResponse }
      * 
      */
@@ -46,11 +38,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link GetCourseDetailsRequest.CourseDetails }
+     * Create an instance of {@link GetAllCourseDetailsResponse }
      * 
      */
-    public GetCourseDetailsRequest.CourseDetails createGetCourseDetailsRequestCourseDetails() {
-        return new GetCourseDetailsRequest.CourseDetails();
+    public GetAllCourseDetailsResponse createGetAllCourseDetailsResponse() {
+        return new GetAllCourseDetailsResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetCourseDetailsRequest }
+     * 
+     */
+    public GetCourseDetailsRequest createGetCourseDetailsRequest() {
+        return new GetCourseDetailsRequest();
     }
 
     /**
@@ -59,6 +59,22 @@ public class ObjectFactory {
      */
     public GetCourseDetailsResponse.CourseDetails createGetCourseDetailsResponseCourseDetails() {
         return new GetCourseDetailsResponse.CourseDetails();
+    }
+
+    /**
+     * Create an instance of {@link GetAllCourseDetailsRequest }
+     * 
+     */
+    public GetAllCourseDetailsRequest createGetAllCourseDetailsRequest() {
+        return new GetAllCourseDetailsRequest();
+    }
+
+    /**
+     * Create an instance of {@link GetAllCourseDetailsResponse.CourseDetails }
+     * 
+     */
+    public GetAllCourseDetailsResponse.CourseDetails createGetAllCourseDetailsResponseCourseDetails() {
+        return new GetAllCourseDetailsResponse.CourseDetails();
     }
 
 }

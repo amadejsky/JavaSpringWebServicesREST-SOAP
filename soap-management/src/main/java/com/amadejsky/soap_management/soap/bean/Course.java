@@ -1,8 +1,5 @@
 package com.amadejsky.soap_management.soap.bean;
 
-import com.amadejsky.soap_management.soap.service.CourseDetailsService;
-import org.springframework.beans.factory.annotation.Autowired;
-
 public class Course {
 
     private int id;
