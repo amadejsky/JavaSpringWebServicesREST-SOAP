@@ -1,6 +1,5 @@
 package courses;
 
-import java.math.BigInteger;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
@@ -25,6 +24,8 @@ public class GetCourseDetailsRequest {
         this.courseDetails = value;
     }
 
+
+
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
             "id",
@@ -34,7 +35,7 @@ public class GetCourseDetailsRequest {
     public static class CourseDetails {
 
         @XmlElement(namespace = "http://in28minutes.com/courses", required = true)
-        protected BigInteger id;
+        protected int id;
 
         @XmlElement(namespace = "http://in28minutes.com/courses")
         protected String name;
@@ -42,11 +43,11 @@ public class GetCourseDetailsRequest {
         @XmlElement(namespace = "http://in28minutes.com/courses")
         protected String description;
 
-        public BigInteger getId() {
+        public int getId() {
             return id;
         }
 
-        public void setId(BigInteger value) {
+        public void setId(int value) {
             this.id = value;
         }
 

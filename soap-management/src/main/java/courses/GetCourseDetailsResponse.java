@@ -105,7 +105,7 @@ public class GetCourseDetailsResponse {
     public static class CourseDetails {
 
         @XmlElement(namespace = "http://in28minutes.com/courses", required = true)
-        protected BigInteger id;
+        protected int id;
         @XmlElement(namespace = "http://in28minutes.com/courses")
         protected String name;
         @XmlElement(namespace = "http://in28minutes.com/courses")
@@ -119,7 +119,7 @@ public class GetCourseDetailsResponse {
          *     {@link BigInteger }
          *     
          */
-        public BigInteger getId() {
+        public int getId() {
             return id;
         }
 
@@ -131,7 +131,7 @@ public class GetCourseDetailsResponse {
          *     {@link BigInteger }
          *     
          */
-        public void setId(BigInteger value) {
+        public void setId(int value) {
             this.id = value;
         }
 
