@@ -12,51 +12,57 @@ import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
+import java.math.BigInteger;
 import java.util.List;
 
 @Endpoint
 public class CourseDetailsEndpoint {
     @Autowired
-    CourseDetailsService service;
+    private CourseDetailsService service;
     private static final String NAMESPACE_URI = "http://in28minutes.com/courses";
 
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "GetCourseDetailsRequest")
     @ResponsePayload
-    public GetCourseDetailsResponse processCourseDetailsRequest(@RequestPayload GetCourseDetailsRequest request) {
-
+    public GetCourseDetailsResponse processCourseDetailsRequest(@RequestPayload GetCourseDetailsRequest request) throws Exception {
         Course course = service.findById(request.getCourseDetails().getId());
-        GetCourseDetailsResponse response = new GetCourseDetailsResponse();
-
-        // Tworzenie nowego obiektu CourseDetails dla odpowiedzi
-        return mapCourseDetails(request, course, response);
+        if (course == null) {
+            throw new Exception("Invalid Course Id " + request.getCourseDetails().getId());
+        }
+        return mapCourseDetails(course);
     }
 
-    private static GetCourseDetailsResponse mapCourseDetails(GetCourseDetailsRequest request, Course course, GetCourseDetailsResponse response) {
-        GetCourseDetailsResponse.CourseDetails responseCourseDetails = mapCourse(request, course);
-
-        // Ustawianie CourseDetails w odpowiedzi
-        response.setCourseDetails(responseCourseDetails);
+    private GetCourseDetailsResponse mapCourseDetails(Course course) {
+        GetCourseDetailsResponse response = new GetCourseDetailsResponse();
+        response.setCourseDetails(mapCourse(course));
         return response;
     }
 
-    private static GetCourseDetailsResponse.CourseDetails mapCourse(GetCourseDetailsRequest request, Course course) {
-        GetCourseDetailsResponse.CourseDetails responseCourseDetails = new GetCourseDetailsResponse.CourseDetails();
-
-        // Przypisywanie wartości z żądania do obiektu odpowiedzi
-        GetCourseDetailsRequest.CourseDetails requestCourseDetails = request.getCourseDetails();
-        responseCourseDetails.setId(course.getId());
-        responseCourseDetails.setName(course.getName());
-        responseCourseDetails.setDescription(course.getDescription());
-        return responseCourseDetails;
+    private GetCourseDetailsResponse.CourseDetails mapCourse(Course course) {
+        GetCourseDetailsResponse.CourseDetails courseDetails = new GetCourseDetailsResponse.CourseDetails();
+        courseDetails.setId(course.getId());
+        courseDetails.setName(course.getName());
+        courseDetails.setDescription(course.getDescription());
+        return courseDetails;
     }
 
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "GetAllCourseDetailsRequest")
     @ResponsePayload
     public GetAllCourseDetailsResponse processAllCourseDetailsRequest(@RequestPayload GetAllCourseDetailsRequest request) {
-
         List<Course> courses = service.findAll();
-        
-
+        return mapAllCourseDetails(courses);
     }
+
+    private GetAllCourseDetailsResponse mapAllCourseDetails(List<Course> courses) {
+        GetAllCourseDetailsResponse response = new GetAllCourseDetailsResponse();
+        for (Course course : courses) {
+            GetCourseDetailsResponse.CourseDetails courseDetails = mapCourse(course);
+            response.getCourseDetails().add(courseDetails);
+        }
+        return response;
+    }
+
+
+
+
 
 }
