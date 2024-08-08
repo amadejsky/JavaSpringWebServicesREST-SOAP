@@ -1,6 +1,7 @@
 package com.amadejsky.soap_management;
 
 import com.amadejsky.soap_management.soap.bean.Course;
+import com.amadejsky.soap_management.soap.exception.CourseNotFoundException;
 import com.amadejsky.soap_management.soap.service.CourseDetailsService;
 import courses.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,11 +21,11 @@ public class CourseDetailsEndpoint {
 
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "GetCourseDetailsRequest")
     @ResponsePayload
-    public GetCourseDetailsResponse processCourseDetailsRequest(@RequestPayload GetCourseDetailsRequest request) throws Exception {
+    public GetCourseDetailsResponse processCourseDetailsRequest(@RequestPayload GetCourseDetailsRequest request) {
         Course course = service.findById(request.getCourseDetails().getId());
-        if (course == null) {
-            throw new Exception("Invalid Course Id " + request.getCourseDetails().getId());
-        }
+//        if (course == null) {
+//            throw new CourseNotFoundException("Invalid Course Id " + request.getCourseDetails().getId());
+//        }
         return mapCourseDetails(course);
     }
 
@@ -46,6 +47,7 @@ public class CourseDetailsEndpoint {
     @ResponsePayload
     public GetAllCourseDetailsResponse processAllCourseDetailsRequest(@RequestPayload GetAllCourseDetailsRequest request) {
         List<Course> courses = service.findAll();
+
         return mapAllCourseDetails(courses);
     }
 
