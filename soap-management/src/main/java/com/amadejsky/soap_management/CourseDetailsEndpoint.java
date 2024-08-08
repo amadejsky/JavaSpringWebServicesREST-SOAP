@@ -2,10 +2,7 @@ package com.amadejsky.soap_management;
 
 import com.amadejsky.soap_management.soap.bean.Course;
 import com.amadejsky.soap_management.soap.service.CourseDetailsService;
-import courses.GetAllCourseDetailsRequest;
-import courses.GetAllCourseDetailsResponse;
-import courses.GetCourseDetailsRequest;
-import courses.GetCourseDetailsResponse;
+import courses.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
@@ -50,6 +47,21 @@ public class CourseDetailsEndpoint {
     public GetAllCourseDetailsResponse processAllCourseDetailsRequest(@RequestPayload GetAllCourseDetailsRequest request) {
         List<Course> courses = service.findAll();
         return mapAllCourseDetails(courses);
+    }
+
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "DeleteCourseDetailsRequest")
+    @ResponsePayload
+    public DeleteCourseDetailsResponse deleteCourseDetailsRequest(@RequestPayload DeleteCourseDetailsRequest request) {
+        CourseDetailsService.Status status = service.deleteById(request.getId());
+        DeleteCourseDetailsResponse response = new DeleteCourseDetailsResponse();
+        response.setStatus(mapStatus(status));
+        return response;
+    }
+
+    private CourseDetailsService.Status mapStatus(CourseDetailsService.Status status) {
+        if(status==CourseDetailsService.Status.FAILURE)
+            return CourseDetailsService.Status.FAILURE;
+        return CourseDetailsService.Status.SUCCESS;
     }
 
     private GetAllCourseDetailsResponse mapAllCourseDetails(List<Course> courses) {

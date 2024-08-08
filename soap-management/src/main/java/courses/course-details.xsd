@@ -48,4 +48,20 @@
         </xs:complexType>
     </xs:element>
 
+    <xs:element name="DeleteCourseDetailsRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:integer"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="DeleteCourseDetailsResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="status" type="xs:integer"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
 </xs:schema>
