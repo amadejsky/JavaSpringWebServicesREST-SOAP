@@ -29,7 +29,8 @@ public class UserDaoService {
             if(u.getId()==id)
                 return u;
         }
-        throw new IllegalArgumentException("User with given Id "+id+" does't exist");
+//        throw new IllegalArgumentException("User with given Id "+id+" does't exist");
+        return null;
     }
 
     public User save(User user){

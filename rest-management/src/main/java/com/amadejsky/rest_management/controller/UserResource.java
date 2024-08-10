@@ -1,5 +1,6 @@
 package com.amadejsky.rest_management.controller;
 
+import com.amadejsky.rest_management.exceptions.UserNotFoundException;
 import com.amadejsky.rest_management.models.User;
 import com.amadejsky.rest_management.service.UserDaoService;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +23,10 @@ public class UserResource {
 
     @GetMapping(path = "/users/{id}")
     public User retrieveUserById(@PathVariable int id){
-        return userDaoService.findById(id);
+        User user = userDaoService.findById(id);
+        if(user==null)
+            throw new UserNotFoundException("id: "+id);
+        return user;
     }
 
     @PostMapping(path = "/users")
