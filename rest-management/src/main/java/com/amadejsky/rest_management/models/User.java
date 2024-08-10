@@ -4,6 +4,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.Past;
+import jakarta.validation.constraints.Size;
 
 import java.time.LocalDate;
 
@@ -12,7 +14,9 @@ public class User {
 //    @Id
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Size(min=2, message = "Name should have at least 2 characters")
     private String name;
+    @Past(message = "Only past date allowed!")
     private LocalDate birthDate;
 
     public User() {

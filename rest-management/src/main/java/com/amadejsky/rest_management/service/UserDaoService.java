@@ -39,6 +39,15 @@ public class UserDaoService {
         return user;
     }
 
+    public User deleteUser(int id){
+        for(User u: users){
+            if(u.getId()==id)
+                users.remove(id);
+        }
+//        throw new IllegalArgumentException("User with given Id "+id+" does't exist");
+        return null;
+    }
+
 //    public User findOne(int id) {
 //        Predicate<? super User> predicate = user -> user.getId().equals(id);
 //        return users.stream().filter(predicate).findFirst().get();
