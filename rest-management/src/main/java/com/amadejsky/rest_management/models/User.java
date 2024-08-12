@@ -1,5 +1,6 @@
 package com.amadejsky.rest_management.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -15,8 +16,10 @@ public class User {
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @Size(min=2, message = "Name should have at least 2 characters")
+    @JsonProperty("user_name")
     private String name;
     @Past(message = "Only past date allowed!")
+    @JsonProperty("birth_date")
     private LocalDate birthDate;
 
     public User() {
