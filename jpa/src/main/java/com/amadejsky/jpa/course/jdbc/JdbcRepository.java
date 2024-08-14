@@ -12,17 +12,17 @@ public class JdbcRepository {
     private JdbcTemplate jdbc;
     private static String INSERT_QUERY =
             """
-                    insert into course(id, name, author)
+                    insert into courses(id, name, author)
                     values(?,?,?);
             """;
     private static String DELETE_QUERY =
             """
-                    delete from course
+                    delete from courses
                     where id = ?;
             """;
     private static String SELECT_QUERY =
             """
-                    select * from course
+                    select * from courses
                     where id = ?;
             """;
     public void insert(Course course){
