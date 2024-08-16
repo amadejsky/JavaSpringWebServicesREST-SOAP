@@ -2,13 +2,15 @@ package com.amadejsky.rest_management.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 
 @Entity(name="posts")
 public class Post {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
+    @Size(min=3)
     private String description;
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnore
@@ -17,8 +19,8 @@ public class Post {
     public Post() {
     }
 
-    public Post(Long id, String title, String description, User user) {
-        this.id = id;
+    public Post(String title, String description, User user) {
+
         this.title = title;
         this.description = description;
         this.user = user;
@@ -28,9 +30,9 @@ public class Post {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+//    public void setId(Long id) {
+//        this.id = id;
+//    }
 
     public String getTitle() {
         return title;

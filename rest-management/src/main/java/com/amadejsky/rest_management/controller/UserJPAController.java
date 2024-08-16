@@ -3,6 +3,7 @@ package com.amadejsky.rest_management.controller;
 import com.amadejsky.rest_management.exceptions.UserNotFoundException;
 import com.amadejsky.rest_management.models.Post;
 import com.amadejsky.rest_management.models.User;
+import com.amadejsky.rest_management.repository.PostRepository;
 import com.amadejsky.rest_management.repository.UserRepository;
 import jakarta.validation.Valid;
 import org.springframework.context.MessageSource;
@@ -26,11 +27,14 @@ public class UserJPAController {
     private MessageSource messageSource;
 
     private UserRepository userRepository;
+    private PostRepository postRepository;
 
-    public UserJPAController(MessageSource messageSource, UserRepository userRepository) {
+    public UserJPAController(MessageSource messageSource, UserRepository userRepository, PostRepository postRepository) {
         this.messageSource = messageSource;
         this.userRepository = userRepository;
+        this.postRepository = postRepository;
     }
+
 
     //    public UserResource(UserDaoService userDaoService) {
 //        this.userDaoService = userDaoService;
@@ -67,8 +71,8 @@ public class UserJPAController {
     @DeleteMapping(path = "/jpa/users/{id}")
     public List<User> deleteUser(@PathVariable Long id){
         Optional<User> user = userRepository.findById(id);
-        if(user==null)
-            throw new UserNotFoundException("id: "+id);
+//        if(user==null)
+//            throw new UserNotFoundException("id: "+id);
         userRepository.deleteById(id);
         return userRepository.findAll();
     }
@@ -78,6 +82,21 @@ public class UserJPAController {
 //        if(user==null)
 //            throw new UserNotFoundException("id: "+id);
         return user.get().getPosts();
+    }
+    @PostMapping(path = "/jpa/users/{id}/posts")
+    public ResponseEntity<Post> createPostsForUser(@PathVariable Long id, @Valid @RequestBody Post post){
+        Optional<User> user = userRepository.findById(id);
+//        if(user==null)
+//            throw new UserNotFoundException("id: "+id);
+        post.setUser(user.get());
+        Post savedPost = postRepository.save(post);
+
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentRequest().path("/{id}")
+                .buildAndExpand(
+                        savedPost.getId()
+                ).toUri();
+        return ResponseEntity.created(location).build();
     }
 
         @GetMapping(path="/jpa/test-i18")
